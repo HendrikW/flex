@@ -21,10 +21,10 @@ module Flex
           # works for all association types, if the instances have a #flex proxy
           when synced.is_a?(Symbol)
             to_sync = instance.send(synced)
-            if to_sync.respond_to?(:each)
-              to_sync.each { |s| s.flex.sync(*trail) }
-            else
+            if to_sync.respond_to?(:flex)
               to_sync.flex.sync(*trail)
+            else
+              to_sync.each { |s| s.flex.sync(*trail) }
             end
           # sync 'blog'
           # polymorphic: use this form only if you want to sync any specific parent type but not all
